@@ -8,10 +8,7 @@ ENV PATH=/opt/venv/bin:/root/.local/bin:/usr/local/nvidia/bin:/usr/local/cuda/bi
 
 # Download the git and curl, and verify uv installer, then install uv
 RUN apt-get update && apt-get install -y git curl jq && \
-    curl -LsSf https://github.com/astral-sh/uv/releases/download/0.7.11/uv-installer.sh > install.sh && \
-    echo "01b1e200d158a482a40819729ac910fd5de7334f4fd5a511cdde7967d8cd090a install.sh" | sha256sum --check && \
-    bash install.sh && \
-    rm install.sh && \
+    curl -LsSf https://astral.sh/uv/install.sh | sh && \
     uv venv /opt/venv --python 3.10.14
 
 # Copy the `pyproject.toml` into the image
