@@ -19,7 +19,7 @@ bake-and-test-deploy: ## For quick publishing to cookiecutter-pytorch-lightning-
 		github_author_handle=foreverYoungGitHub \
 		project_name=cookiecutter-pytorch-lightning-example \
 		project_slug=cookiecutter_pytorch_lightning_example
-	@cd cookiecutter-pytorch-lightning-example; uv sync && \
+	@cd cookiecutter-pytorch-lightning-example; uv sync --torch-backend=auto && \
 		git init -b main && \
 		git add . && \
 		uv run pre-commit install && \
