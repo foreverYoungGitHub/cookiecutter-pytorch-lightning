@@ -1,21 +1,21 @@
-# Install uv
-FROM python:3.12-slim
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+# Use the image from the NVIDIA container registry
+FROM nvcr.io/nvidia/cuda:12.8.1-cudnn-devel-ubuntu20.04
 
-# Change the working directory to the `app` directory
-WORKDIR /app
+# Add all necessary paths to PATH
+ENV PATH=/opt/venv/bin:/root/.local/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/nvidia/lib64 \
+    VIRTUAL_ENV=/opt/venv
 
-# Copy the lockfile and `pyproject.toml` into the image
-COPY uv.lock /app/uv.lock
-COPY pyproject.toml /app/pyproject.toml
+# Download the git and curl, and verify uv installer, then install uv
+RUN apt-get update && apt-get install -y git curl jq && \
+    curl -LsSf https://github.com/astral-sh/uv/releases/download/0.7.11/uv-installer.sh > install.sh && \
+    echo "01b1e200d158a482a40819729ac910fd5de7334f4fd5a511cdde7967d8cd090a install.sh" | sha256sum --check && \
+    bash install.sh && \
+    rm install.sh && \
+    uv venv /opt/venv --python 3.10.14
 
-# Install dependencies
-RUN uv sync --frozen --no-install-project
+# Copy the `pyproject.toml` into the image
+COPY pyproject.toml .
 
-# Copy the project into the image
-COPY . /app
-
-# Sync the project
-RUN uv sync --frozen
-
-CMD [ "python", "{{cookiecutter.project_slug}}/foo.py" ]
+# Install dependencies only
+RUN uv sync --torch-backend=auto --no-install-project
