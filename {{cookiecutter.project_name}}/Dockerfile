@@ -18,4 +18,4 @@ RUN apt-get update && apt-get install -y git curl jq && \
 COPY pyproject.toml .
 
 # Install dependencies only
-RUN uv sync --torch-backend=auto --no-install-project
+RUN uv sync --no-install-project
