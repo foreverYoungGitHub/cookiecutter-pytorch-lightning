@@ -201,9 +201,9 @@ class MNISTLitModule(LightningModule):
                 "optimizer": optimizer,
                 "lr_scheduler": {
                     "scheduler": scheduler,
-                    "monitor": "val/loss",
-                    "interval": "epoch",
-                    "frequency": 1,
+                    "monitor": self.hparams.configure_optimizers.monitor,
+                    "interval": self.hparams.configure_optimizers.interval,
+                    "frequency": self.hparams.configure_optimizers.frequency,
                 },
             }
         return {"optimizer": optimizer}
