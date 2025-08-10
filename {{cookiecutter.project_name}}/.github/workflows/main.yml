@@ -46,9 +46,9 @@ jobs:
       - name: Run tests
         run: uv run python -m pytest tests {% if cookiecutter.codecov == "y" %}--cov --cov-config=pyproject.toml --cov-report=xml{%- endif %}
 
-{% if cookiecutter.mypy == "y" %}
+{% if cookiecutter.type_checker != "None" %}
       - name: Check typing
-        run: uv run mypy
+        run: uv run {% if cookiecutter.type_checker == "mypy" %}mypy{% else %}ty check{% endif %}
 {% endif %}
 
 {% if cookiecutter.codecov == "y" %}
