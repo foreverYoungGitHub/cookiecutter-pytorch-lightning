@@ -21,5 +21,10 @@ net:
   lin3_size: 64
   output_size: 10
 
+configure_optimizers:
+  monitor: "val/loss"
+  interval: "epoch"
+  frequency: 1
+
 # compile model for faster training with pytorch 2.0
 torch_compile: false
