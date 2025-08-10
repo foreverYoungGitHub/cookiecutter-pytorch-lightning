@@ -17,10 +17,6 @@
     "y",
     "n"
   ],
-  "mypy": [
-    "n",
-    "y"
-  ],
   "deptry": [
     "y",
     "n"
@@ -40,6 +36,11 @@
   "devcontainer": [
     "y",
     "n"
+  ],
+  "type_checker": [
+    "none",
+    "ty",
+    "mypy"
   ],
   "open_source_license": [
     "MIT license",
