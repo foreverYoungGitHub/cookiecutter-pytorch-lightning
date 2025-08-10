@@ -17,10 +17,6 @@
     "y",
     "n"
   ],
-  "mypy": [
-    "n",
-    "y"
-  ],
   "deptry": [
     "y",
     "n"
@@ -42,8 +38,9 @@
     "n"
   ],
   "type_checker": [
-    "mypy",
-    "ty"
+    "none",
+    "ty",
+    "mypy"
   ],
   "open_source_license": [
     "MIT license",
